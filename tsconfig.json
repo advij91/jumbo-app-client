@@ -22,6 +22,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "components/OutletForm.jsx", "services/outletService.js", "src/app/outlets/add/page.jsx", "src/app/outlets/[id]/page.jsx", "src/app/outlets/page.jsx", "src/app/items/page.jsx", "src/app/items/add/page.jsx"],
   "exclude": ["node_modules"]
 }
