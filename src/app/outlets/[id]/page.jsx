@@ -1,27 +1,26 @@
 "use client"
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Outlet } from "../../../../types";
 import OutletForm from "../../../../components/OutletForm";
 import { getOutletById, updateOutlet } from "../../../../services/outletService";
 
 export default function EditOutletPage() {
   const router = useRouter();
   const { id } = useParams();
-  const [outlet, setOutlet] = useState<Outlet | null>(null);
+  const [outlet, setOutlet] = useState(null);
 
   useEffect(() => {
     async function fetchOutlet() {
       if (id) {
-      const data = await getOutletById(id as string);
+      const data = await getOutletById(id);
       setOutlet(data);
     }
   }
   fetchOutlet();
   }, [id]);
 
-  const handleSubmit = async (outletData: Outlet) => {
-    await updateOutlet(id as string, outletData);
+  const handleSubmit = async (outletData) => {
+    await updateOutlet(id, outletData);
     router.push("/outlets");
   };
 

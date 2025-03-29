@@ -1,12 +1,10 @@
 "use client";
-
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { getOutlets, deleteOutlet } from "../../../services/outletService";
-import { Outlet } from "../../../types";
 
 export default function OutletPage() {
-  const [outlets, setOutlets] = useState<Outlet[]>([]);
+  const [outlets, setOutlets] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -17,7 +15,7 @@ export default function OutletPage() {
     fetchOutlets();
   }, []);
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id) => {
     if (confirm("Are you sure you want to delete this outlet?")) {
       await deleteOutlet(id);
       setOutlets(outlets.filter((outlet) => outlet._id !== id));

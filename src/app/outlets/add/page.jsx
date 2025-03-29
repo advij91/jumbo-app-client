@@ -2,12 +2,11 @@
 import { useRouter } from "next/navigation";
 import OutletForm from "../../../../components/OutletForm";
 import { createOutlet } from "../../../../services/outletService";
-import { Outlet } from "../../../../types";
 
 export default function AddOutletPage() {
   const router = useRouter();
 
-  const handleSubmit = async (outletData: Outlet) => {
+  const handleSubmit = async (outletData) => {
     console.log(outletData)
     await createOutlet(outletData);
     router.push("/outlets");

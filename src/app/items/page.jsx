@@ -4,11 +4,10 @@ import {
   getMenuItems,
   deleteMenuItem,
 } from "../../../services/menuItemService";
-import { MenuItem } from "../../../types";
 import { useRouter } from "next/navigation";
 
 const MenuItemsPage = () => {
-  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [menuItems, setMenuItems] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -28,10 +27,10 @@ const MenuItemsPage = () => {
     router.push("/items/new"); // Navigate to the "Add New Item" page
   };
 
-  const handleEditItem = (id: string) => {
+  const handleEditItem = (id) => {
     router.push(`/items/edit/${id}`); // Navigate to the "Edit Item" page
   };
-  const handleDeleteItem = async (id: string) => {
+  const handleDeleteItem = async (id) => {
     const confirmed = window.confirm(
       "Are you sure you want to delete this item?"
     );
@@ -79,13 +78,13 @@ const MenuItemsPage = () => {
             </div>
             <div className="flex justify-between">
               <button
-                onClick={() => handleEditItem(item._id)}
+                onClick={() => handleEditItem(item._id ?? "")}
                 className="bg-primary text-white px-3 py-1 rounded hover:bg-secondary transition"
               >
                 Edit
               </button>
               <button
-                onClick={() => handleDeleteItem(item._id)}
+                onClick={() => handleDeleteItem(item._id ?? "")}
                 className="bg-primary text-white px-3 py-1 rounded hover:bg-secondary transition"
               >
                 Delete
