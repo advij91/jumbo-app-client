@@ -1,7 +1,4 @@
 import axiosInstance from "./axiosInstance";
-
-import { MenuItem } from "../types";
-
 const pubBucketURL = process.env.NEXT_PUBLIC_BUCKET_URL;
 
 export async function getMenuItems() {
