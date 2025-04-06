@@ -7,7 +7,6 @@ export default function AddOutletPage() {
   const router = useRouter();
 
   const handleSubmit = async (outletData) => {
-    console.log(outletData)
     await createOutlet(outletData);
     router.push("/outlets");
   };

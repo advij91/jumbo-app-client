@@ -4,10 +4,12 @@ import {
   getMenuItems,
   deleteMenuItem,
 } from "../../../services/menuItemService";
+import { getOutlets } from "../../../services/outletService";
 import { useRouter } from "next/navigation";
 
 const MenuItemsPage = () => {
   const [menuItems, setMenuItems] = useState([]);
+  const [outlets, setOutlets] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
@@ -23,12 +25,25 @@ const MenuItemsPage = () => {
     fetchMenuItems();
   }, []);
 
+  useEffect(() => {
+    const fetchOutlets = async () => {
+      try {
+        const outlets = await getOutlets();
+        setOutlets(outlets); // Handle the fetched outlets as needed
+      } catch (error) {
+        console.error("Error fetching outlets:", error);
+      }
+    };
+    fetchOutlets();
+  }, []);
+
+
   const handleAddNewItem = () => {
-    router.push("/items/new"); // Navigate to the "Add New Item" page
+    router.push("/items/add"); // Navigate to the "Add New Item" page
   };
 
   const handleEditItem = (id) => {
-    router.push(`/items/edit/${id}`); // Navigate to the "Edit Item" page
+    router.push(`/items/${id}`); // Navigate to the "Edit Item" page
   };
   const handleDeleteItem = async (id) => {
     const confirmed = window.confirm(
@@ -55,7 +70,7 @@ const MenuItemsPage = () => {
           Add New Item
         </button>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-6">
         {menuItems.map((item) => (
           <div
             key={item._id}
@@ -65,16 +80,28 @@ const MenuItemsPage = () => {
               <div className="w-3/5 pr-4">
                 <h2 className="text-xl font-semibold mb-2">{item.name}</h2>
                 <p className="text-secondary mb-4">{item.description}</p>
-                <p className="text-gray-600 mb-2">Price: ₹{item.price}</p>
-                <p className="text-gray-600 mb-2">Ingredients: {item.ingrediants}</p>
+                <p className="text-gray-600 mb-2">Ingredients: {item.ingredients}</p>
+              <p className="text-gray-600 mb-2">Category: {item.category}</p>
+              <p className="text-gray-600 mb-2">Labels: {item.labels.join(", ")}</p>
               </div>
               <div className="w-2/5">
                 <img
                   src={item.imageUrl} // Use the imageUrl from the backend
                   alt={item.name}
-                  className="w-full h-36 object-cover rounded-md mb-4"
+                  className="w-full h-42 object-cover rounded-md mb-4"
                 />
               </div>
+            </div>
+            <div className="list-disc mb-4">
+              {item.outletDetails.map((outletDetail) => (
+                <div key={outletDetail.outletId} className="mb-2">
+                  <span className="font-semibold"></span>
+                  <span className="font-semibold">{outlets.find(outlet => outlet._id === outletDetail.outletId)?.name}</span>:{" "}
+                  <span>{outletDetail.isAvailable ? "Available" : "Not Available"}</span>
+                  <br />
+                  <span>Price: ₹{outletDetail.price}</span>
+                  </div>
+               ))}
             </div>
             <div className="flex justify-between">
               <button

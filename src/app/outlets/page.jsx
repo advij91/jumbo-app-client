@@ -41,6 +41,7 @@ export default function OutletPage() {
               <h2 className="text-xl font-semibold text-primary">{outlet.name}</h2>
               <p className="text-secondary">{outlet.address}</p>
               <p className="text-secondary">{outlet.city}</p>
+              <p className="text-secondary">{outlet.state}</p>
               <p className="text-secondary">{outlet.pin}</p>
               <p className="text-secondary">{outlet.contact}</p>
               <div className="flex gap-2 mt-4">
